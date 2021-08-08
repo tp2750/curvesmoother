@@ -1,0 +1,57 @@
+---
+title: "curvesmoother"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{curvesmoother}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+devtools::load_all("..")
+library(MASS)
+library(ggplot2)
+#library(ggpubr)
+library(gridExtra)
+```
+
+# Smoothing example
+
+```{r}
+data(mcyle)
+dat <- MASS::mcycle
+plot(dat)
+```
+
+```{r}
+f1 <- smooth.spline(dat)
+f1
+```
+```{r}
+plot(f1)
+
+```
+
+
+```{r}
+dat2 <- with(dat, data.frame(x=times, y=accel))
+f2 <- curvesmoother::curvesmoother(dat2)
+head(f2)
+```
+```{r}
+ggplot(f2, aes(x=x,y=y)) + geom_point(color = "black") + geom_line(aes(y=yhat), color = "blue") + ggtitle(sprintf("Smooth Spline df=%.2f, lambda = %.2g", unique(f2$df), unique(f2$lambda)))
+
+
+```
+
+```{r}
+cs_plot(curvesmoother(dat2))
+```
+
