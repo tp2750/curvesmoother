@@ -7,4 +7,4 @@ Simple curve-smoother based on R smooth.spline.
 
 Output is input x,y plus predicted y and predicted derivative of y.
 
-[Vignette](vignettes/curvesmoother.html)
+[Vignette](vignettes/curvesmoother.Rmd)
